@@ -49,3 +49,12 @@
 ;; 2, and may miss 0 by 1 (5, 3, 1, -1...). Ops.
 
 
+(define square
+  (lambda (n)
+    (if (= n 0)
+	0
+	(if (even? n)
+	    (* (square (/ n 2))
+	       4)
+	    (+ (square (- n 1))
+	       (- (+ n n) 1))))))
