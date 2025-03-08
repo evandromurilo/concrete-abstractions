@@ -58,3 +58,34 @@
 	       4)
 	    (+ (square (- n 1))
 	       (- (+ n n) 1))))))
+
+(define quot
+  (lambda (n d)
+    (if (< n 0)
+	(- (quot (- n) d))
+	(if (< d 0)
+	    (- (quot n (- d)))
+	    (if (< n d)
+		0
+		(+ 1 (quot (- n d) d)))))))
+
+(define quot
+  (lambda (n d)
+    (cond ((< d 0) (- (quot n (- d))))
+	  ((< n 0) (- (quot (- n) d)))
+	  ((< n d) 0)
+	  (else    (+ 1 (quot (- n d) d))))))
+
+(define multiply
+  (lambda (a b)
+    (if (= 0 b)
+	0
+	(+ a (multiply a (- b 1))))))
+
+(define multiply
+  (lambda (a b)
+    (cond ((< a 0) (- (multiply (- a) b)))
+	  ((< b 0) (- (multiply a (- b))))
+	  ((= 0 b) 0)
+	  (else    (+ a (multiply a (- b 1)))))))
+	   
