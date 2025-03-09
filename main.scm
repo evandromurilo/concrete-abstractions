@@ -184,4 +184,10 @@
     (cond ((= n 0) 0)
 	  ((odd? n) (+ 1 (num-odd (quotient n 10))))
 	  (else    (num-odd (quotient n 10))))))
+
+(define sum-of-digits
+  (lambda (n)
+    (if (= n 0)
+	0
+	(+ (remainder n 10) (sum-of-digits (quotient n 10))))))
 	  
