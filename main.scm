@@ -165,4 +165,17 @@
     (cond ((< n 0) (num-digits (- n)))
 	  ((< n 10) 1)
 	  (else    (+ 1 (num-digits (quotient n 10)))))))
-    
+
+(define num-sixes
+  (lambda (n)
+    (cond ((= n 0) 0)
+	  ((= (remainder n 10) 6) (+ 1 (num-sixes (quotient n 10))))
+	  (else (num-sixes (quotient n 10))))))
+
+;; only significant digits, so (num-d 0 0) = 0
+(define num-d
+  (lambda (n d)
+    (cond ((= n 0) 0)
+	  ((= (remainder n 10) d) (+ 1 (num-d (quotient n 10) d)))
+	  (else (num-d (quotient n 10) d)))))
+	  
