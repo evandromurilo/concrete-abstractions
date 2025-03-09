@@ -1,3 +1,7 @@
+;; Esse arquivo é o meu caderno de anotações do livro Concrete Abstractions,
+;; sem muita ordem. Tem alguns rascunhos, experimentos e respostas de
+;; exercícios.
+
 (define power
   (lambda (base exponent)
     (if (= exponent 0)
@@ -89,3 +93,76 @@
 	  ((= 0 b) 0)
 	  (else    (+ a (multiply a (- b 1)))))))
 	   
+
+;; The subtract-the-first procedure computes the negative of the sum of all
+;; integers from 0 to n inclusive, where n is a non-negative integer. In other
+;; words, it calculates (- 0 + 1 + 2 + ... + n).
+
+(define square
+  (lambda (n)
+    (* n n)))
+
+(define sum-of
+  (lambda (n)
+    (if (= n 0)
+	0
+	(+ n (sum-of (- n 1))))))
+
+;; sum the average payoff
+(define square-of-average
+  (lambda (n)
+    (square (/ (sum-of n) n))))
+
+(define sum-of-squares
+  (lambda (n)
+    (if (= n 0)
+	(square 0)
+	(+ (square n) (sum-of-squares (- n 1))))))
+
+;; average of the square of payoffs
+(define average-of-square
+  (lambda (n)
+    (/ (sum-of-squares n) n)))
+
+
+(define subtract-the-first
+  (lambda (n)
+    (if (= n 0)
+	0
+	(- n (subtract-the-first (- n 1))))))
+
+;; The result is different because it changes the order of subtraction.
+;; It now returns n/2 when n is even, and (n/2)+1 when n
+;; is odd, where division yields an integer. So, the same as (ceil (/ n 2))
+
+(define sum-integers-from-to
+  (lambda (low high)
+    (if (> low high)
+	0
+	(+ (sum-integers-from-to (+ low 1) high)
+	   low))))
+
+(define sum-of-cubes
+  (lambda (n)
+    (if (= n 0)
+	0
+	(+ (* n n n) (sum-of-cubes (- n 1))))))
+
+(define power
+  (lambda (n p)
+    (if (= p 0)
+	1
+	(* n (power n (- p 1))))))
+
+(define sum-of-powers
+  (lambda (n p)
+    (if (= n 0)
+	0
+	(+ (power n p) (sum-of-powers (- n 1) p)))))
+
+(define num-digits
+  (lambda (n)
+    (cond ((< n 0) (num-digits (- n)))
+	  ((< n 10) 1)
+	  (else    (+ 1 (num-digits (quotient n 10)))))))
+    
