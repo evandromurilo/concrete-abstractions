@@ -178,4 +178,10 @@
     (cond ((= n 0) 0)
 	  ((= (remainder n 10) d) (+ 1 (num-d (quotient n 10) d)))
 	  (else (num-d (quotient n 10) d)))))
+
+(define num-odd
+  (lambda (n)
+    (cond ((= n 0) 0)
+	  ((odd? n) (+ 1 (num-odd (quotient n 10))))
+	  (else    (num-odd (quotient n 10))))))
 	  
