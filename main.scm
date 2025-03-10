@@ -197,3 +197,27 @@
 	0
 	(+ 1 (exponent-of-two (/ n 2))))))
 	  
+
+(define foo
+  (lambda (x n)
+    (if (= n 0)
+	1
+	(+ (expt x n) (foo x (- n 1))))))
+
+;; Hypothesis: foo terminates with (x^(n+1) - 1)/(x-1)
+;; Base case: n=0 terminates with 1, (x^(0+1)-1)/x-1
+;;                                   = (x^1-1)/x-1
+;;                                   = (x-1)/(x-1)
+;;                                   = 1
+;; so base case holds for any value of 1
+;;
+;; Inductive step: assume it holds for some integer k, and prove
+;; it holds for k+1
+;;
+;; We expect (x^(k+2)-1)/(x-1)
+;;
+;; (+ (expt x k+1) (foo x k))
+;; = (+ {x^(k+1)} {(x^(k+1)-1)/(x-1)})
+;; = x^(k+1) + (x^(k+1)-1)/(x-1)
+;; = ... to much algebra to type!
+;; = (x^(k+2)-1)/(x-1)
