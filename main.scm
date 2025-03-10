@@ -190,4 +190,10 @@
     (if (= n 0)
 	0
 	(+ (remainder n 10) (sum-of-digits (quotient n 10))))))
+
+(define exponent-of-two
+  (lambda (n)
+    (if (odd? n)
+	0
+	(+ 1 (exponent-of-two (/ n 2))))))
 	  
