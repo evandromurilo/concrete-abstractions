@@ -252,3 +252,20 @@
 ;; by distributing the two, we get
 ;; 2(k+1)
 
+(define foo
+  (lambda (n)
+    (if (= n 0)
+	2
+	(expt (foo (- n 1)) 2))))
+
+;; hypothesis: for all nonnegative integers n, the procedure foo
+;;   computes the value 2^(2^n)
+;; base case: n = 0, computes 2, 2^(2^0) = 2^1 = 2, which is
+;;   the expected value
+;; inductive step: assume (foo k) works as intended, attempt to
+;;   prove that (foo (+ k 1)) computes 2^(2^(k+1))
+;;
+;; (foo (- k 1)) evaluates to (expt (foo k) 2)
+;; = (2^(2^k))^2
+;; = 2^(2 (2^k))
+;; = 2^(2^(k+1))
