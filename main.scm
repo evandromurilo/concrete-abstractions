@@ -221,3 +221,34 @@
 ;; = x^(k+1) + (x^(k+1)-1)/(x-1)
 ;; = ... to much algebra to type!
 ;; = (x^(k+2)-1)/(x-1)
+
+(define presents-on-day
+  (lambda (n)
+    (if (= n 1)
+	1
+	(+ n (presents-on-day (- n 1))))))
+
+(define presents-through-day
+  (lambda (n)
+    (if (= n 1)
+	(presents-on-day 1)
+	(+ (presents-on-day n) (presents-through-day (- n 1))))))
+
+(define f
+  (lambda (n)
+    (if (= n 0)
+	0
+	(+ 2 (f (- n 1))))))
+
+;; hypothesis: for every nonnegative integer n, the procedure
+;;   f computes 2n
+;; base case: n = 0, computes 0, which is correct
+;; inductive step: assume (f k) computes 2k, demonstrate that
+;;   (f (+ k 1)) computes 2(k+1)
+;;
+;; (f (+ k 1)) translates to (+ 2 (f k))
+;; = (+ 2 (* k 2))
+;; = 2 + 2k
+;; by distributing the two, we get
+;; 2(k+1)
+
