@@ -269,3 +269,23 @@
 ;; = (2^(2^k))^2
 ;; = 2^(2 (2^k))
 ;; = 2^(2^(k+1))
+
+(define f
+  (lambda (n)
+    (if (= n 0)
+	0
+	(+ (f (- n 1))
+	   (/ 1 (* n (+ n 1)))))))
+
+;; hypothesis: f computes n/(n+1) for any nonnegative integer n.
+;; base case: n = 0, computes 0, which is 0/0+1 = 0
+;; inductive step: assume (f k) computes k/k+1, attempt to prove
+;;   that (f (+ k 1)) computes k+1/k+2
+;;
+;; (f (+ k 1)) evaluates to
+;; (+ (f k) (/ 1 (* (+ k 1) (+ (+ k 1) 1))))
+;; = (k/k+1) + 1/((k+1)(k+2))
+;; ... multiply left by (k+2),
+;;     sum fractions,
+;;     apply perfect square...
+;; = k+1/k+2
