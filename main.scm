@@ -344,5 +344,14 @@
 	(side-by-side
 	 (image-of-number (quotient n 10))
 	 (image-of-digit (remainder n 10))))))
-			  
+
+(define factorial-product
+  (lambda (a b)
+    (if (= b 0)
+	a
+	(factorial-product (* a b) (- b 1)))))
+
+(define factorial
+  (lambda (n)
+    (factorial-product 1 n)))
 	   
