@@ -285,7 +285,64 @@
 ;; (f (+ k 1)) evaluates to
 ;; (+ (f k) (/ 1 (* (+ k 1) (+ (+ k 1) 1))))
 ;; = (k/k+1) + 1/((k+1)(k+2))
-;; ... multiply left by (k+2),
+;; ... multiply left numerator and denominator by (k+2),
 ;;     sum fractions,
-;;     apply perfect square...
+;;     apply perfect square,
+;;     divide numerator and denominator by k+1...
 ;; = k+1/k+2
+
+(define f
+  (lambda (image n)
+    (if (= n 0)
+	image
+	(stack-on-itself (f image (- n 1))))))
+
+;; hypothesis: the value of (f image n) is an image 2^n times as high as image,
+;;   provided n is a nonnegative integer
+;; base case: for n = 0, return the image unchanged, and as 2^0 = 1, it checks
+;;   out (is an image 1 time the size of the original)
+;; inductive step: assume (f image k) gives an image 2^k times as high as
+;;   the original image, demonstrate that (f image (+ k 1)) gives an image
+;;   2^(k+1) times as high
+;;
+;; (f image (+ k 1)) evaluates to (stack-on-itself (f image k))
+;; = (stack-on-itself k-image)  with height(k-image) = 2^k height(image)
+;; as stack-on-itself gives an image with double the height, we can say that
+;; height(stack-on-itself k-image) = 2 height(k-image)
+;; = 2 . 2^k height(image)
+;; = 2^(k+1) height(image)
+;; which is the expected result
+
+(define foo
+  (lambda (n)
+    (if (= n 0)
+	0
+	(+ (foo (- n 1))
+	   (/ 1 (- (* 4 (square n)) 1))))))
+
+;; hypothesis: for every nonnegative integer n, (foo n) computes n/(2n+1)
+;; base case: for n = 0, computes 0, which checks out 0/1 = 0
+;; inductive step: assume (foo k) computes k/2k+1, show that (foo (+ k 1)
+;;   computes k+1/2(k+1)+1
+;;
+;; (foo (+ k 1)) evaluates to (k/2k+1) + (1/(4((k+1)^2)-1))
+;; =
+
+(define image-of-digit
+  (lambda (d)
+    (cond ((= d 0) (zero-bb))
+	  ((= d 1) (one-bb))
+	  ((= d 2) (two-bb))
+	  ((= d 3) (three-bb))
+	  ...
+	  ((= d 9) (nine-bb)))))
+
+(define image-of-number
+  (lambda (n)
+    (if (<= n 9)
+	(image-of-digit n)
+	(side-by-side
+	 (image-of-number (quotient n 10))
+	 (image-of-digit (remainder n 10))))))
+			  
+	   
