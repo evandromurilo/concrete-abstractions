@@ -370,3 +370,8 @@
     (factorial-product n 1 1)))
 
 	
+(define exponent-of-two
+  (lambda (n p)
+    (if (odd? n)
+	p
+	(exponent-of-two (/ n 2) (+ 1 p)))))
