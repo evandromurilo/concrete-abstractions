@@ -355,3 +355,14 @@
   (lambda (n)
     (factorial-product 1 n)))
 	   
+(define factorial-product
+  (lambda (f n p)
+    (if (= n f)
+	p
+	(factorial-product f (+ n 1) (* p (+ n 1))))))
+
+(define factorial
+  (lambda (n)
+    (factorial-product n 1 1)))
+
+	
