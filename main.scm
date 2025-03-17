@@ -354,7 +354,11 @@
 (define factorial
   (lambda (n)
     (factorial-product 1 n)))
-	   
+
+;; para o fatorial da direita para a esquerda, não consegui pensar em uma
+;; maneira de não precisar carregar o resultado parcial, tenho a impressão
+;; de que não existe, a não ser que eu faça recursivo:
+;;   (* n (factorial-product f (+ n 1)))
 (define factorial-product
   (lambda (f n p)
     (if (= n f)
